@@ -60,8 +60,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         strEmail = etEmail.getText().toString();
         strPassword = etPassword.getText().toString();
 
-        String email_validate = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b";
-        Pattern p = Pattern.compile(email_validate);
+        String email_validator = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b";
+        Pattern p = Pattern.compile(email_validator);
         Matcher m = p.matcher(strEmail);
 
 
