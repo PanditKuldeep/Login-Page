@@ -3,11 +3,17 @@ package com.example.webwerks.loginmodule.view;
 
 import com.example.webwerks.loginmodule.model.Loginmodel;
 
-public interface loginview {
+public interface loginview{
 
   void loginView(Loginmodel loginmodel);
 
   void errorView(String s);
+
+  void showValidationError();
+
+  void emailValidation();
+
+  void passwordValidation();
 
 }
 

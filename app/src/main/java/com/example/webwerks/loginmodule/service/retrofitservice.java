@@ -36,5 +36,4 @@ public class retrofitservice {
 
         return retrofit.create(retrofitapi.class);
     }
-
 }

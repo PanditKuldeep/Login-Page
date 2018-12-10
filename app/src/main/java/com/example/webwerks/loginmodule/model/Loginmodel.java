@@ -17,7 +17,7 @@ public class Loginmodel {
     public Data data;
 
 
-
+    //object
     public class Data {
 
         @SerializedName("id")

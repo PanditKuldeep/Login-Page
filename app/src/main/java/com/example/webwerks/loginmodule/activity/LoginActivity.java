@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Context context;
     EditText etEmail,etPassword;
     Button btnLogin;
-    String strEmail,strPassword;
     LoginPresenter mPresenter;
 
     @Override
@@ -50,34 +49,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()){
 
             case R.id.btnLogin:
-                validation();
+                 mPresenter.handleLogin(etEmail.getText().toString(),etPassword.getText().toString());
                 break;
         }
     }
-
-    private void validation() {
-
-        strEmail = etEmail.getText().toString();
-        strPassword = etPassword.getText().toString();
-
-        String email_validator = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b";
-        Pattern p = Pattern.compile(email_validator);
-        Matcher m = p.matcher(strEmail);
-
-
-        if (etEmail.equals("") || etEmail.length() == 0
-                || etPassword.equals("") || etPassword.length() == 0){
-
-            Toast.makeText(context, "All fields are required.", Toast.LENGTH_LONG).show();
-        }else if (!m.find()){
-            Toast.makeText(context, "Your Email Id is Invalid.", Toast.LENGTH_LONG).show();
-        }else if (etPassword.length()==0){
-            Toast.makeText(context, "Enter your Password.", Toast.LENGTH_LONG).show();
-        }else {
-            mPresenter.userLogin(strEmail,strPassword);
-        }
-    }
-
 
 
     public void onStop() {
@@ -86,14 +61,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    public void showValidationError() {
+        Toast.makeText(this,"All field required",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void emailValidation() {
+        Toast.makeText(context, "Your Email Id is Invalid.", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void passwordValidation() {
+        Toast.makeText(context, "Enter your Password.", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void loginView(Loginmodel loginmodel) {
 
-        Toast.makeText(this,loginmodel.user_msg,Toast.LENGTH_LONG).show();
+        Toast.makeText(context,loginmodel.user_msg,Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void errorView(String s) {
 
-        Toast.makeText(this,"Email or password is wrong. try again",Toast.LENGTH_LONG).show();
+        Toast.makeText(context,"Email or password is wrong. try again",Toast.LENGTH_LONG).show();
     }
+
 }
