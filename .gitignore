@@ -9,3 +9,5 @@
 /build
 /captures
 .externalNativeBuild
+* .bat
+* .idea.idea

@@ -1,11 +1,11 @@
 package com.example.webwerks.loginmodule.view;
 
 
-import com.example.webwerks.loginmodule.model.Loginmodel;
+import com.example.webwerks.loginmodule.model.response.LoginResponse;
 
 public interface loginview{
 
-  void loginView(Loginmodel loginmodel);
+  void loginView(LoginResponse loginmodel);
 
   void errorView(String s);
 
