@@ -3,7 +3,7 @@ package com.example.webwerks.loginmodule.view;
 
 import com.example.webwerks.loginmodule.model.response.LoginResponse;
 
-public interface loginview{
+public interface LoginView {
 
   void loginView(LoginResponse loginmodel);
 

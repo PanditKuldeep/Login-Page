@@ -3,21 +3,17 @@ package com.example.webwerks.loginmodule.activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.webwerks.loginmodule.R;
-import com.example.webwerks.loginmodule.model.Loginmodel;
+import com.example.webwerks.loginmodule.model.response.LoginResponse;
 import com.example.webwerks.loginmodule.presenter.LoginPresenter;
-import com.example.webwerks.loginmodule.view.loginview;
+import com.example.webwerks.loginmodule.view.LoginView;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener,loginview {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,LoginView {
     Context context;
     EditText etEmail,etPassword;
     Button btnLogin;
@@ -76,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void loginView(Loginmodel loginmodel) {
+    public void loginView(LoginResponse loginmodel) {
 
         Toast.makeText(context,loginmodel.user_msg,Toast.LENGTH_LONG).show();
     }

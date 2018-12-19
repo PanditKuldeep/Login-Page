@@ -1,14 +1,9 @@
-package com.example.webwerks.loginmodule.model;
+package com.example.webwerks.loginmodule.model.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Loginmodel {
+public class LoginResponse extends BaseResponse{
 
-    @SerializedName("status")
-    public String status;
-
-    @SerializedName("message")
-    public String message;
 
     @SerializedName("user_msg")
     public String user_msg;

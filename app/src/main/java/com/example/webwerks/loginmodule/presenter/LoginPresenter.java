@@ -2,33 +2,24 @@ package com.example.webwerks.loginmodule.presenter;
 
 
 import android.text.TextUtils;
-import android.util.Log;
-import com.example.webwerks.loginmodule.model.Loginmodel;
-import com.example.webwerks.loginmodule.service.retrofitservice;
-import com.example.webwerks.loginmodule.view.loginview;
+
+import com.example.webwerks.loginmodule.model.request.LoginRequest;
+import com.example.webwerks.loginmodule.model.response.LoginResponse;
+import com.example.webwerks.loginmodule.service.RestServices;
+import com.example.webwerks.loginmodule.view.LoginView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
-
 
 public class LoginPresenter implements loginpresenter{
 
-    private loginview mView;
-    private retrofitservice mretrofit;
+    private LoginView mView;
     private String TAG = "LoginPresenter";
 
 
-    public LoginPresenter(loginview loginview){
-
+    public LoginPresenter(LoginView loginview){
         this.mView = loginview;
-
-        if (this.mretrofit == null){
-            this.mretrofit = new retrofitservice();
-        }
     }
 
 
@@ -50,35 +41,19 @@ public class LoginPresenter implements loginpresenter{
         } else if (TextUtils.isEmpty(password)) {
             mView.passwordValidation();
         }else {
-            userLogin(email,password);
+            LoginRequest loginRequest = new LoginRequest();
+            loginRequest.setEmail(email);
+            loginRequest.setPassword(password);
+            LoginResponse loginResponse = RestServices.getInstance().authenticUser(loginRequest);
+            if (loginResponse.getStatus() != -1){
+                mView.loginView(loginResponse);
+            }
+            else {
+                mView.errorView(loginResponse.getMessage());
+            }
         }
 
     }
-
-    private void userLogin(String strEmail, String strPassword){
-
-        mretrofit.userLogin().userLogin(strEmail,strPassword)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Loginmodel>() {
-                               @Override
-                               public void onSuccess(Loginmodel model) {
-
-                                   if (model!=null){
-                                       mView.loginView(model);
-                                       Log.d(TAG, "not null");
-                                   }
-                               }
-
-                               @Override
-                               public void onError(Throwable e) {
-                                   Log.d(TAG, "onError");
-                                   mView.errorView("401");
-                               }
-                           });
-
-    }
-
 
     public void onStop(){
         mView = null;
